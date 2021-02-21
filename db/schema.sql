@@ -8,9 +8,9 @@ CREATE TABLE products (
   id INT NOT NULL AUTO_INCREMENT,
   item VARCHAR(255),
   min_cost FLOAT,
-  current_bid FLOAT,
+  curr_bid FLOAT,
   ends_in INT,
-  img VARCHAR(255),
+  image VARCHAR(255),
   PRIMARY KEY (id)
 );
 
