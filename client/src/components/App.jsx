@@ -60,7 +60,7 @@ export default class App extends React.Component {
         </nav>
         <div className="row main-container">
           <div className="col-md-7 product-viewer-container">
-            <ProductViewer productViewer={this.state.productViewer}/>
+            <ProductViewer productViewer={this.state.productViewer} getProducts={this.getProducts} />
           </div>
           <div className="col-md-5 product-list-container">
             <ProductList productList={this.state.products} handleSelectedClick={this.handleSelectedClick}/>

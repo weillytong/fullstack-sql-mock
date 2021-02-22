@@ -1,20 +1,23 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class ProductViewer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       selected: {},
-      isUpdating: false
-      // id: 0,
-      // item: '',
-      // min_cost: 0,
-      // curr_bid: 0,
-      // ends_in: 0,
-      // image: ''
+      isUpdating: false,
+      id: 0,
+      item: '',
+      min_cost: 0,
+      curr_bid: 0,
+      ends_in: 0,
+      image: ''
     }
     // this.getProductViewer = this.getProductViewer.bind(this);
-    this.handleUpdating = this.handleUpdating.bind(this);
+    // this.handleUpdating = this.handleUpdating.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   // getProductViewer() {
@@ -30,13 +33,38 @@ export default class ProductViewer extends React.Component {
   //   this.getProductViewer();
   // }
 
-  handleUpdating() {
+  // handleUpdating() {
+  //   this.setState({
+  //     isUpdating: !this.state.isUpdating
+  //   }, () => {
+  //     console.log(this.state.isUpdating)
+  //   })
+  // }
+  handleChange(e) {
     this.setState({
-      isUpdating: !this.state.isUpdating
+      curr_bid: e.target.value
     }, () => {
-      console.log(this.state.isUpdating)
+      console.log('this.state.curr_bid', this.state.curr_bid)
     })
+
   }
+
+  handleSubmit(e) {
+    // Invoke axios patch
+    e.preventDefault()
+    axios.patch(`/api/products/${this.props.productViewer.id}`, {
+      curr_bid: this.state.curr_bid
+    })
+      // upon success, re render app
+      .then((results) => {
+        alert('successfully updated bid price');
+        this.props.getProducts();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
 
   render(){
     return(
@@ -47,10 +75,11 @@ export default class ProductViewer extends React.Component {
         </div>
         <div> Current Bid:
           ${this.props.productViewer.curr_bid}
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <label> New Bid:
-              <input></input>
+              <input onChange={this.handleChange}></input>
             </label>
+            <button> Submit New Bid </button>
           </form>
         </div>
         <div> Original Posting Price:
