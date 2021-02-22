@@ -1,10 +1,23 @@
 import React from 'react';
-  
-const Products = () => {
-   return(
-    <div className='product-list-entry'>
-    </div>
-  )
-}
 
-export default Products
+
+export default class Products extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    }
+  }
+
+  render() {
+    return(
+      <div onClick={(e) => this.props.handleSelectedClick(this.props.product, e)}>
+        {/* {console.log('this.props', this.props)} */}
+        {this.props.product.item}
+        {this.props.product.min_cost}
+        {this.props.product.curr_bid}
+        {this.props.product.ends_in}
+        <img src={this.props.product.image}/>
+      </div>
+    )
+  }
+}

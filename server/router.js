@@ -10,7 +10,7 @@ router
 
 router
   .route('/products/:_id')
-  .put(controller.put)
+  .patch(controller.patch)
   .delete(controller.delete)
 
 module.exports = router
