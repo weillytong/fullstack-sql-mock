@@ -41,7 +41,7 @@ export default class App extends React.Component {
     // pass this function down to Products.jsx
   handleSelectedClick(product, e) {
     this.setState({
-      index: product.id
+      index: (product.id - 1)
     }/*, () => {
       console.log('this.state.productViewer', this.state.productViewer)
     }*/)
@@ -51,7 +51,7 @@ export default class App extends React.Component {
     return(
       <div>
         <div>
-          {/* {console.log(this.state)} */}
+          {console.log(this.state.index)}
           <h1>EBID</h1>
           <h3>The jankiest ebay rip-off you'll ever see (probably)</h3>
         </div>
