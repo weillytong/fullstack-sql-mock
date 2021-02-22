@@ -10,7 +10,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       products: [],
-      productViewer: {}
+      productViewer: [],
+      index: 0
     }
     this.getProducts = this.getProducts.bind(this);
     this.handleSelectedClick = this.handleSelectedClick.bind(this);
@@ -21,7 +22,7 @@ export default class App extends React.Component {
       .then((results) => {
         this.setState({
           products: results.data,
-          productViewer: results.data[0]
+          productViewer: results.data
         }/*, ()=> {
           console.log('this.state', this.state)
         }*/)
@@ -40,7 +41,7 @@ export default class App extends React.Component {
     // pass this function down to Products.jsx
   handleSelectedClick(product, e) {
     this.setState({
-      productViewer: product
+      index: product.id
     }/*, () => {
       console.log('this.state.productViewer', this.state.productViewer)
     }*/)
@@ -50,6 +51,7 @@ export default class App extends React.Component {
     return(
       <div>
         <div>
+          {/* {console.log(this.state)} */}
           <h1>EBID</h1>
           <h3>The jankiest ebay rip-off you'll ever see (probably)</h3>
         </div>
@@ -60,7 +62,7 @@ export default class App extends React.Component {
         </nav>
         <div className="row main-container">
           <div className="col-md-7 product-viewer-container">
-            <ProductViewer productViewer={this.state.productViewer} getProducts={this.getProducts} />
+            <ProductViewer productViewer={this.state.productViewer} index={this.state.index} getProducts={this.getProducts} />
           </div>
           <div className="col-md-5 product-list-container">
             <ProductList productList={this.state.products} handleSelectedClick={this.handleSelectedClick}/>
